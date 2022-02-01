@@ -42,15 +42,43 @@ request('https://stackoverflow.com/questions', (err, res, html) => {
             ws.cell(1, headingColIndex++).string(heading);
         });
 
-        let rowIndex = 2;
-        let colIndex = 1;   
-        json['ques'].forEach(record => {
-            Object.keys(record).forEach(columnName => {
-                ws.cell(rowIndex++, colIndex++).string(record[columnName]);
-            });
-        });
-        wb.write('data.xlsx');
+        // // let colIndex = 1;
+        // json['ques'].forEach(record => {
 
+        //     let rowIndex = 2;
+        //     let colIndex = 1;   
+        //     Object.keys(record).forEach(columnName => {
+        //         ws.cell(rowIndex, colIndex);
+        //     });
+        //     rowIndex++;
+        //     colIndex++;
+        // });
+
+
+        let rowIndex = 2;
+        for(let i  = 0; i<json['ques'].length; i++) {
+            // Object.keys(json['ques']).forEach(columnName => {
+            //     console.log(columnName);
+            // })
+            ws.cell(rowIndex++, 1).string(json['ques'][i]);
+        }
+        rowIndex = 2;
+        for(let i  = 0; i<json['votes'].length; i++) {
+            // Object.keys(json['ques']).forEach(columnName => {
+            //     console.log(columnName);
+            // })
+            ws.cell(rowIndex++, 2).string(json['votes'][i]);
+        }
+        
+        rowIndex = 2;
+        for(let i  = 0; i<json['answers'].length; i++) {
+            // Object.keys(json['ques']).forEach(columnName => {
+            //     console.log(columnName);
+            // })
+            ws.cell(rowIndex++, 3).string(json['answers'][i]);
+        }
+        
+        wb.write('data.xlsx');
     }
 });
 
